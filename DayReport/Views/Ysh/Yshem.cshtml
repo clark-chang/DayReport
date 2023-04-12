@@ -1,0 +1,98 @@
+﻿@using System.Data;
+@model DataSet;
+@{
+    ViewData["Title"] = "員生急診";
+}
+
+<h1 align="center">員生急診</h1>
+<p align="center">取得資料時間</p>
+<p align="center">@DateTime.Now.ToString("yyyy-MM-dd HH:mm")</p>
+<br />
+<br />
+<h1>急診人次</h1>
+<table id="em1" class="table table-striped">
+    <tr>
+        <th>院區</th>
+        <th>看診日期</th>
+        <th>科別全名</th>
+        <th>醫師姓名</th>
+        <th>大夜</th>
+        <th>早班</th>
+        <th>小夜</th>
+    </tr>
+    @foreach (DataRow dr in Model.Tables[0].Rows)
+    {
+        <tr>
+            <td>@dr["院區"]</td>
+            <td>@dr["看診日期"]</td>
+            <td>@dr["科別全名"]</td>
+            <td>@dr["醫師姓名"]</td>
+            <td>@dr["大夜"]</td>
+            <td>@dr["早班"]</td>
+            <td>@dr["小夜"]</td>
+        </tr>
+    }
+</table>
+<h4>班別時間 (大夜00:00~08:00&nbsp;早班08:00~16:00&nbsp;小夜16:00~24:00)</h4>
+<hr />
+<br />
+<br />
+<br />
+<br />
+<h1>急診初診人數</h1>
+<table id="em2" class="table table-striped">
+    <tr>
+        <th>看診日期</th>
+        <th>初診</th>
+    </tr>
+    @foreach (DataRow dr in Model.Tables[1].Rows)
+    {
+        <tr>
+            <td>@dr["看診日期"]</td>
+            <td>@dr["初診人數"]</td>
+        </tr>
+    }
+</table>
+<hr />
+<br />
+<br />
+<br />
+<br />
+<h1>急診住院人數</h1>
+<table id="em3" class="table table-striped">
+    <tr>
+        <th>看診日期</th>
+        <th>轉住院</th>
+    </tr>
+    @foreach (DataRow dr in Model.Tables[2].Rows)
+    {
+        <tr>
+            <td>@dr["看診日期"]</td>
+            <td>@dr["轉住院人數"]</td>
+        </tr>
+    }
+</table>
+<hr />
+<br />
+<br />
+<br />
+<br />
+<div style="text-align:right;">
+    <button id="btnExporttoExcel" type="button" class="btn btn-light">
+        <h1>下載報表</h1>
+    </button>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(function () {
+            $("#btnExporttoExcel").click(function () {
+                $("#em1").table2excel({ filename: "員生急診人次.xls"               });
+                $("#em2").table2excel({ filename: "員生急診初診人數.xls"           });
+                $("#em3").table2excel({ filename: "員生急診住院人數.xls"          });
+            });
+        });
+    });
+</script>
+
+
+

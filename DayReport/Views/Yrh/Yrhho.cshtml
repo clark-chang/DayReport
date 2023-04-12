@@ -1,0 +1,185 @@
+﻿@using System.Data;
+@model DataSet;
+
+@{
+    ViewData["Title"] = "員榮門診";
+    int mt = 0;
+    int mtf = 0;
+    int et = 0;
+    int etf = 0;
+    int vt = 0;
+    int vtf = 0;
+    int total = 0;
+    int firsttotal = 0;
+
+}
+
+<h1 align="center">員榮門診</h1>
+<p align="center">取得資料時間</p>
+<p align="center">@DateTime.Now.ToString("yyyy-MM-dd HH:mm")</p>
+<br />
+<br />
+<h1>實際門診及初診人數</h1>
+<table id="ho1" class="table table-striped">
+    <tr>
+        <th>院區</th>
+        <th>科別</th>
+        <th>診間</th>
+        <th>醫師</th>
+        <th>早</th>
+        <th>早初</th>
+        <th>午</th>
+        <th>午初</th>
+        <th>晚</th>
+        <th>晚初</th>
+        <th>合計</th>
+    </tr>
+    @foreach (DataRow dr in Model.Tables[1].Rows)
+    {
+        <tr>
+            <td>@dr["院區"]</td>
+            <td>@dr["科別名稱"]</td>
+            <td>@dr["診間號"]</td>
+            <td>@dr["醫師名稱"]</td>
+            <td>@dr["早診"]</td>
+            <td>@dr["早診初診人次"]</td>
+            <td>@dr["午診"]</td>
+            <td>@dr["午診初診人次"]</td>
+            <td>@dr["晚診"]</td>
+            <td>@dr["晚診初診人次"]</td>
+            <td>@dr["合計"]</td>
+        </tr>
+    }
+</table>
+<hr />
+<br />
+<br />
+<br />
+<br />
+<h1>院區小計</h1>
+<table id="ho2" class="table table-striped">
+    <tr>
+        <th>院區</th>
+        <th>小計</th>
+    </tr>
+    @foreach (DataRow dr in Model.Tables[3].Rows)
+    {
+        <tr>
+            <td>@dr["院區"]</td>
+            <td>@dr["小計"]</td>
+        </tr>
+    }
+</table>
+<hr />
+<br />
+<br />
+<br />
+<br />
+<h1>其他及初診人數</h1>
+<table id="ho3" class="table table-striped">
+    <tr>
+        <th>院區</th>
+        <th>科別</th>
+        <th>診間</th>
+        <th>醫師</th>
+        <th>早</th>
+        <th>早初</th>
+        <th>午</th>
+        <th>午初</th>
+        <th>晚</th>
+        <th>晚初</th>
+        <th>合計</th>
+    </tr>
+    @foreach (DataRow dr in Model.Tables[2].Rows)
+    {
+        <tr>
+            <td>@dr["院區"]</td>
+            <td>@dr["科別名稱"]</td>
+            <td>@dr["診間號"]</td>
+            <td>@dr["醫師名稱"]</td>
+            <td>@dr["早診"]</td>
+            <td>@dr["早診初診人次"]</td>
+            <td>@dr["午診"]</td>
+            <td>@dr["午診初診人次"]</td>
+            <td>@dr["晚診"]</td>
+            <td>@dr["晚診初診人次"]</td>
+            <td>@dr["合計"]</td>
+        </tr>
+    }
+</table>
+@foreach (DataRow dr in Model.Tables[0].Rows)
+{
+    mt += Convert.ToInt32(@dr["早診"].ToString());
+    mtf += Convert.ToInt32(@dr["早診初診人次"].ToString());
+    et += Convert.ToInt32(@dr["午診"].ToString());
+    etf += Convert.ToInt32(@dr["午診初診人次"].ToString());
+    vt += Convert.ToInt32(@dr["晚診"].ToString());
+    vtf += Convert.ToInt32(@dr["晚診初診人次"].ToString());
+}
+@{
+    total = mt + et + vt;
+    firsttotal = mtf + etf + vtf;
+}
+<hr />
+<br />
+<br />
+<br />
+<br />
+<h1>早午晚小計</h1>
+<table id="ho4" class="table table-striped">
+    <tr>
+        <th>早</th>
+        <th>早初</th>
+        <th>午</th>
+        <th>午初</th>
+        <th>晚</th>
+        <th>晚初</th>
+    </tr>
+    <tr>
+        <td>@mt</td>
+        <td>@mtf</td>
+        <td>@et</td>
+        <td>@etf</td>
+        <td>@vt</td>
+        <td>@vtf</td>
+    </tr>
+</table>
+<hr />
+<br />
+<br />
+<br />
+<br />
+<h1>今日總計</h1>
+<table id="ho5" class="table table-striped">
+    <tr>
+        <th>門診</th>
+        <th>初診</th>
+    </tr>
+    <tr>
+        <td>@total</td>
+        <td>@firsttotal</td>
+    </tr>
+</table>
+<hr />
+<br />
+<br />
+<br />
+<br />
+<div style="text-align:right;">
+    <button id="btnExporttoExcel" type="button" class="btn btn-light">
+        <h1>下載報表</h1>
+    </button>
+</div>    
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(function () {
+            $("#btnExporttoExcel").click(function () {
+                $("#ho1").table2excel({ filename: "員榮實際門診及初診人數.xls" });
+                $("#ho2").table2excel({ filename: "員榮院區小計.xls"           });
+                $("#ho3").table2excel({ filename: "員榮其他及初診人數.xls"      });
+                $("#ho4").table2excel({ filename: "員榮早午晚小計.xls"         });
+                $("#ho5").table2excel({ filename: "員榮今日總計.xls"           });
+            });
+        });
+    });
+</script>

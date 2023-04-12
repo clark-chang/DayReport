@@ -1,0 +1,250 @@
+﻿@using System.Data;
+@model DataSet;
+@{
+    ViewData["Title"] = "員生住院";
+    int yr = 0 + 1;
+    int ys = 0 + 1;
+
+    foreach (DataRow dr in Model.Tables[3].Rows)
+    {
+        if (dr["院區"].ToString() == "B")
+        {
+            ys += 1;
+        }
+        else
+        {
+            yr += 1;
+        }
+    }
+}
+
+<h1 align="center">員生住院</h1>
+<p align="center">取得資料時間</p>
+<p align="center">@DateTime.Now.ToString("yyyy-MM-dd HH:mm")</p>
+<br />
+<br />
+<h1>今日收住院人數</h1>
+<table id="hi1" class="table table-striped">
+    <tr>
+        <th>院區</th>
+        <th>科別名稱</th>
+        <th>醫師名稱</th>
+        <th>住院人數</th>
+    </tr>
+    @foreach (DataRow dr in Model.Tables[0].Rows)
+    {
+        <tr>
+            <td>@dr["院區"]</td>
+            <td>@dr["科別名稱"]</td>
+            <td>@dr["醫師名稱"]</td>
+            <td>@dr["小計"]</td>
+        </tr>
+    }
+</table>
+<hr />
+<br />
+<br />
+<br />
+<br />
+<h1>今日出院人數</h1>
+<table id="hi2" class="table table-striped">
+    <tr>
+        <th>院區</th>
+        <th>科別名稱</th>
+        <th>醫師名稱</th>
+        <th>出院人數</th>
+    </tr>
+    @foreach (DataRow dr in Model.Tables[1].Rows)
+    {
+        <tr>
+            <td>@dr["院區"]</td>
+            <td>@dr["科別名稱"]</td>
+            <td>@dr["醫師名稱"]</td>
+            <td>@dr["小計"]</td>
+        </tr>
+    }
+</table>
+<hr />
+<br />
+<br />
+<br />
+<br />
+<h1>目前住院中人數</h1>
+<h3>依科別</h3>
+<table id="hi3" class="table table-striped">
+    <tr>
+        <th>院區</th>
+        <th>科別名稱</th>
+        <th>醫師名稱</th>
+        <th>總住院人數</th>
+    </tr>
+    @foreach (DataRow dr in Model.Tables[2].Rows)
+    {
+        <tr>
+            <td>@dr["院區"]</td>
+            <td>@dr["科別名稱"]</td>
+            <td>@dr["醫師名稱"]</td>
+            <td>@dr["小計"]</td>
+        </tr>
+    }
+</table>
+<hr />
+<br />
+<br />
+<br />
+<br />
+<h3>依科別(加護病房)</h3>
+<table id="hi4"  class="table table-striped">
+    <tr>
+        <th>院區</th>
+        <th>科別名稱</th>
+        <th>醫師名稱</th>
+        <th>總住院人數</th>
+    </tr>
+    @foreach (DataRow dr in Model.Tables[8].Rows)
+    {
+        <tr>
+            <td>@dr["院區"]</td>
+            <td>@dr["科別名稱"]</td>
+            <td>@dr["醫師名稱"]</td>
+            <td>@dr["小計"]</td>
+        </tr>
+    }
+</table>
+<hr />
+<br />
+<br />
+<br />
+<br />
+<h3>依護理站</h3>
+<table id="hi5" class="table table-striped">
+    <tr>
+        <th>院區</th>
+        <th>護理站</th>
+        <th>實際可用床數</th>
+        <th>健保</th>
+        <th>套房</th>
+        <th>合計</th>
+        <th>佔床率</th>
+    </tr>
+    @foreach (DataRow dr in Model.Tables[3].Rows)
+    {
+
+        <tr>
+            <td>@dr["院區"]</td>
+            <td>@dr["護理站"]</td>
+            <td>@dr["實際可用床數"]</td>
+            <td>@dr["健保"]</td>
+            <td>@dr["套房"]</td>
+            <td>@dr["合計"]</td>
+            <td>@dr["佔床率"]</td>
+        </tr>
+    }
+</table>
+<hr />
+<br />
+<br />
+<br />
+<br />
+<h3>依床位別</h3>
+<table id="hi6" class="table table-striped">
+    <tr>
+        <th>院區</th>
+        <th>護理站</th>
+        <th>實際可用床數</th>
+        <th>健保</th>
+        <th>套房</th>
+        <th>合計</th>
+        <th>佔床率</th>
+    </tr>
+    @foreach (DataRow dr in Model.Tables[4].Rows)
+    {
+        <tr>
+            <td>@dr["院區"]</td>
+            <td>@dr["護理站"]</td>
+            <td>@dr["實際可用床數"]</td>
+            <td>@dr["健保"]</td>
+            <td>@dr["套房"]</td>
+            <td>@dr["合計"]</td>
+            <td>@dr["佔床率"]</td>
+        </tr>
+    }
+    @foreach (DataRow dr in Model.Tables[5].Rows)
+    {
+        <tr>
+            <td>@dr["院區"]</td>
+            <td>@dr["護理站"]</td>
+            <td>@dr["實際可用床數"]</td>
+            <td>@dr["健保"]</td>
+            <td>@dr["套房"]</td>
+            <td>@dr["合計"]</td>
+            <td>@dr["佔床率"]</td>
+        </tr>
+    }
+    @*@foreach (DataRow dr in Model.Tables[6].Rows)
+    {
+        <tr>
+            <td>@dr["院區"]</td>
+            <td>@dr["護理站"]</td>
+            <td>@dr["實際可用床數"]</td>
+            <td>@dr["健保"]</td>
+            <td>@dr["套房"]</td>
+            <td>@dr["合計"]</td>
+            <td>@dr["佔床率"]</td>
+        </tr>
+    }*@
+</table>
+<hr />
+<br />
+<br />
+<br />
+<br />
+<h3>院區小計</h3>
+<table id="hi7"  class="table table-striped">
+    <tr>
+        <th>院區</th>
+        <th>護理站</th>
+        <th>實際可用床數</th>
+        <th>健保</th>
+        <th>套房</th>
+        <th>合計</th>
+        <th>佔床率</th>
+    </tr>
+    @foreach (DataRow dr in Model.Tables[9].Rows)
+    {
+        <tr>
+            <td>@dr["院區"]</td>
+            <td>@dr["護理站"]</td>
+            <td>@dr["實際可用床數"]</td>
+            <td>@dr["健保"]</td>
+            <td>@dr["套房"]</td>
+            <td>@dr["合計"]</td>
+            <td>@dr["佔床率"]</td>
+        </tr>
+    }
+</table>
+<hr />
+<br />
+<br />
+<br />
+<br />
+<div style="text-align:right;">
+    <button id="btnExporttoExcel" type="button" class="btn btn-light">
+        <h1>下載報表</h1>
+    </button>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(function () {
+            $("#btnExporttoExcel").click(function () {
+                $("#hi1").table2excel({ filename: "員生今日收住院人數.xls"               });
+                $("#hi2").table2excel({ filename: "員生今日出院人數.xls"                 });
+                $("#hi3").table2excel({ filename: "員生目前住院中人數依科別.xls"          });
+                $("#hi4").table2excel({ filename: "員生目前住院中人數依科別(加護病房).xls" });
+                $("#hi5").table2excel({ filename: "員生目前住院中人數依護理站.xls"         });
+                $("#hi6").table2excel({ filename: "員生目前住院中人數依床位別.xls"         });
+                $("#hi7").table2excel({ filename: "員生院區小計.xls"                      });
+            });
+        });
+    });
+</script>
